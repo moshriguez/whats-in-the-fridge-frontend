@@ -10,8 +10,8 @@ function App() {
         <Router>
             <Navbar/>
             <Route exact path="/" render={() => <Home />}/>
-            <Route exact path="/" render={() => <Fridge />}/>
-            <Route exact path="/" render={() => <Login />}/>
+            <Route exact path="/fridge" render={() => <Fridge />}/>
+            <Route exact path="/login" render={() => <Login />}/>
         </Router>
     )
 }
