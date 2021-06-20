@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const loginUrl = "http://localhost:3000/api/v1/login"
 const userUrl = "http://localhost:3000/api/v1/users"
 
-const Login = () => {
+const Login = ({setUser}) => {
     const [userForm, setUserForm] = useState({username: "", password: ""})
+    const history = useHistory()
 
     const handleChange = e => {
         setUserForm({...userForm, [e.target.name]: e.target.value})
@@ -19,7 +21,12 @@ const Login = () => {
             },
             body: JSON.stringify(body)
         }
-        fetch(url, config).then(r => r.json()).then(data => console.log(data))
+        fetch(url, config).then(r => r.json()).then(data => {
+            setUser(data.user)
+            setUserForm({username: "", password: ""})
+            localStorage.setItem("jwt", data.jwt)
+            history.replace("/")
+        })
     }
 
     const handleLogin= e => {
