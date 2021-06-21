@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 const loginUrl = "http://localhost:3000/api/v1/login"
-const userUrl = "http://localhost:3000/api/v1/users"
 
 const Login = ({setUser}) => {
     const [userForm, setUserForm] = useState({username: "", password: ""})
@@ -23,7 +22,6 @@ const Login = ({setUser}) => {
         }
         fetch(url, config).then(r => r.json()).then(data => {
             setUser(data.user)
-            setUserForm({username: "", password: ""})
             localStorage.setItem("jwt", data.jwt)
             history.replace("/")
         })
