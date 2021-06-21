@@ -36,7 +36,7 @@ const Login = ({setUser}) => {
         <div>
             <form onSubmit={e => handleLogin(e)}>
                 <input onChange={e => handleChange(e)} value={userForm.username} name="username" placeholder="Enter your username..." required/>
-                <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your passowrd..."type="password" required/>
+                <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your password..."type="password" required/>
                 <input type="submit"/>
             </form>
         </div>
