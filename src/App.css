@@ -70,3 +70,7 @@
 .btn {
     margin-right: 10px;
 }
+
+.nav-link {
+    color: blue !important
+}

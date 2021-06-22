@@ -1,17 +1,15 @@
-import {NavLink} from "react-router-dom"
 import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Nav, Navbar } from 'react-bootstrap'
 
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
 
-
-const Navigation = (props) => {
+const Navigation = ({user, setUser}) => {
     const history = useHistory()
 
     const handleLogout = () => {
         history.push("/")
         localStorage.clear()
-        props.setUser(null)
+        setUser(null)
     }
 
     return (
@@ -19,15 +17,13 @@ const Navigation = (props) => {
             <Navbar.Brand>What's in the Fridge?</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className="justify-content-end">
-            <Nav variant="tabs" defaultActiveKey="/home">
-                <Nav.Link eventKey="home" ><NavLink to="/">Home</NavLink></Nav.Link>
-                <Nav.Link eventKey="fridge" >
-                    <NavLink to={props.user ? '/fridge' : '/login'}>My Fridge</NavLink>
-                </Nav.Link>
-                <Nav.Link eventKey="search" ><NavLink to="/search">Search for Recipes</NavLink></Nav.Link>
-                {props.user ? 
+            <Nav variant="tabs" defaultActiveKey="/">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link eventKey={2} as={Link} to={user ? '/fridge' : '/login'}>My Fridge</Nav.Link>
+                <Nav.Link eventKey={3} as={Link} to="/search" >Search for Recipes</Nav.Link>
+                {user ? 
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link> :
-                <Nav.Link eventKey="login" href="/login"><NavLink to="/login">Login</NavLink></Nav.Link>
+                <Nav.Link eventKey={4} as={Link} to="/login">Login</Nav.Link>
                 }
             </Nav>
             </Navbar.Collapse>
