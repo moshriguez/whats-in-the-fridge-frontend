@@ -5,14 +5,19 @@ import {AiOutlineLock, AiOutlineUser} from 'react-icons/ai'
 const loginUrl = "http://localhost:3000/api/v1/login"
 
 const Login = ({setUser}) => {
+    // Controlled form for user details
     const [userForm, setUserForm] = useState({username: "", password: ""})
-    const [error, setError] = useState(null)
-    const history = useHistory()
-
     const handleChange = e => {
         setUserForm({...userForm, [e.target.name]: e.target.value})
     }
 
+    // Errors if incorrect username/password
+    const [error, setError] = useState(null)
+
+    // Pass reference to useHistory hook
+    const history = useHistory()
+
+    // Authenticate account
     const sendAuthInfo = (body, url) => {
         const config = {
             method: "POST",
