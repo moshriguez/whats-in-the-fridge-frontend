@@ -5,6 +5,7 @@ const loginUrl = "http://localhost:3000/api/v1/login"
 
 const Login = ({setUser}) => {
     const [userForm, setUserForm] = useState({username: "", password: ""})
+    const [error, setError] = useState(null)
     const history = useHistory()
 
     const handleChange = e => {
@@ -21,9 +22,13 @@ const Login = ({setUser}) => {
             body: JSON.stringify(body)
         }
         fetch(url, config).then(r => r.json()).then(data => {
-            setUser(data.user)
-            localStorage.setItem("jwt", data.jwt)
-            history.replace("/")
+            if (data.error){
+                setError(data.error)
+            } else {
+                setUser(data.user)
+                localStorage.setItem("jwt", data.jwt)
+                history.replace("/")
+            }
         })
     }
 
@@ -39,6 +44,9 @@ const Login = ({setUser}) => {
                 <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your password..."type="password" required/>
                 <input type="submit"/>
             </form>
+            <ul>
+                {error ? <li>{error}</li> : null}
+            </ul>
         </div>
     )
 }

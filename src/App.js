@@ -25,12 +25,6 @@ function App() {
         }
     }, [])
 
-    const handleLogut = () => {
-        history.push("/")
-        localStorage.clear()
-        setUser(null)
-    }
-
     return (
         <Router>
             <Navigation/>
