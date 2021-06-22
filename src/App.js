@@ -27,8 +27,8 @@ function App() {
     return (
         <Router>
             <Navigation user={user} setUser={setUser}/>
-            <Route exact path="/" render={() => <Home />}/>
-            <Route exact path="/fridge" render={() => <Fridge user={user}/>}/>
+            <Route exact path="/" render={() => <Home user={user}/>}/>
+            <Route exact path="/fridge" render={() => <Fridge user={user} setUser={setUser}/>}/>
             <Route exact path="/search" render={() => <SearchForRecipes />}/>
             {user ? null :
             <>
