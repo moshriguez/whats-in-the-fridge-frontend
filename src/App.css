@@ -66,3 +66,9 @@
     background-color: red;
     font-size: 20px;
 }
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}

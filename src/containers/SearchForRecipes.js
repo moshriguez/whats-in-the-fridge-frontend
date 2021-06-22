@@ -41,17 +41,21 @@ const SearchForRecipes = (props) => {
                 {
                     (searchResults === null)? "No results found" :
                     (searchResults.length === 0)? "Search for an ingredient to find new recepies" :
-                    <ul>
+                    <div className="card-container">
                         {
                             searchResults.map(result => {
                                 return (
-                                    <li>
-                                        {result.strMeal}
-                                    </li>
+                                    <div className="card" style={{width: 18 + 'rem'}} mealId={result.idMeal} >
+                                        <img className="card-img-top" src={result.strMealThumb} alt={result.strMeal} />
+                                        <div className="card-body">
+                                            <h5 class="card-title">{result.strMeal}</h5>
+                                            <a href="">TODO: Put a link here to full recepie</a>
+                                        </div>
+                                    </div>
                                 );
                             })
                         }
-                    </ul>
+                    </div>
                 }
             </div>
         </div>
