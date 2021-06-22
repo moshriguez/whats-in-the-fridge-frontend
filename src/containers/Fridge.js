@@ -16,6 +16,7 @@ const Fridge = ({ user }) => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
     
+    // Controlled form for edit user
     const [userBio, setUserBio] = useState(user.bio)
     const [userFavFood, setUserFF] = useState(user.favorite_food)
 
