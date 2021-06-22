@@ -99,14 +99,16 @@ const Fridge = ({ user, setUser }) => {
 				<Col className="the-fridge">
 					<h2>The Fridge</h2>
 					<ListGroup variant="flush">
-						{user.ingredients.map((ingredient) => {
+						{user.user_ingredients.map(ui => {
 							return (
 								<ListGroup.Item
-									key={ingredient.id}
+									key={ui.id}
+									id={ui.id}
+									ingredient={ui.ingredient.id}
 									action
 									variant="info"
 								>
-									{ingredient.name}
+									{ui.ingredient.name}
 								</ListGroup.Item>
 							);
 						})}
