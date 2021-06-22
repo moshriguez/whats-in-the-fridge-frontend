@@ -1,4 +1,5 @@
 import { React, useReducer, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
 	Button,
 	Col,
@@ -10,15 +11,22 @@ import {
 } from 'react-bootstrap';
 // import ListGroup from "react-bootstrap/ListGroup"
 
-const Fridge = ({ user }) => {
+const userUrl = "http://localhost:3000/api/v1/users/"
+
+const Fridge = ({ user, setUser }) => {
+	// Pass reference to useHistory hook
+	const history = useHistory()
+	const token = localStorage.getItem('jwt')
     // To Show Modal
 	const [show, setShow] = useState(false);
+	const [confirm, setConfirm] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const showConfirm = () => setConfirm(!confirm)
     
     // Controlled form for edit user
-    const [userBio, setUserBio] = useState(user.bio)
-    const [userFavFood, setUserFF] = useState(user.favorite_food)
+    const [userBio, setUserBio] = useState(user ? user.bio : "")
+    const [userFavFood, setUserFF] = useState(user ? user.favorite_food : "")
 
     const handleChangeBio = (e) => {
         setUserBio(e.target.value)
@@ -27,12 +35,45 @@ const Fridge = ({ user }) => {
         setUserFF(e.target.value)
     }
 
+	// Delete an account
+	const deleteAccount = () => {
+		const config = {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		}
+		fetch(userUrl + user.id, config).then(() => {
+			setConfirm(!confirm)
+			history.replace("/")
+			setUser(null)
+			localStorage.clear()
+		})
+	};
 
-	const deleteAccount = () => {};
+	// Update account information
+	const editAccount = () => {
+		const config = {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify({bio: userBio, favorite_food: userFavFood})
+		}
 
-	const editAccount = () => {};
+		fetch(userUrl + user.id, config).then(r => r.json()).then(data => {
+			const user = data.user
+			setUser(user)
+			setShow(false)
+			setUserBio(user.bio)
+			setUserFF(user.favorite_food)
+		})
+	};
 
 	return (
+		user ?
 		<Container>
 			<Row>
 				{/* User side */}
@@ -49,7 +90,7 @@ const Fridge = ({ user }) => {
 					<Button variant="info" onClick={handleShow}>
 						Edit Info
 					</Button>
-					<Button variant="danger" onClick={deleteAccount}>
+					<Button variant="danger" onClick={showConfirm}>
 						Delete Account
 					</Button>
 				</Col>
@@ -117,8 +158,30 @@ const Fridge = ({ user }) => {
 						</Button>
 					</Modal.Footer>
 				</Modal>
+
+				{/* Delete Account Modal */}
+				<Modal
+					show={confirm}
+					onHide={setConfirm}
+					backdrop="static"
+					keyboard={false}
+				>
+					<Modal.Header closeButton>
+						<Modal.Title>Delete your account?</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Button variant="info" onClick={() => setConfirm(!confirm)}>
+							No
+						</Button>						
+						<Button variant="danger" onClick={deleteAccount}>
+							Yes
+						</Button>						
+					</Modal.Body>
+					<Modal.Footer>
+					</Modal.Footer>
+				</Modal>
 			</Row>
-		</Container>
+		</Container> : null
 	);
 };
 
