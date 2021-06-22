@@ -1,4 +1,3 @@
-import { search } from 'language-tags'
 import React, { useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
@@ -41,7 +40,7 @@ const SearchForRecipes = (props) => {
                 {
                     (searchResults === null)? "No results found" :
                     (searchResults.length === 0)? "Search for an ingredient to find new recepies" :
-                    <div className="card-container">
+                    <div className="card-container" >
                         {
                             searchResults.map(result => {
                                 return (
