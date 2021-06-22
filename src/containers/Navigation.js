@@ -21,7 +21,9 @@ const Navigation = (props) => {
             <Navbar.Collapse className="justify-content-end">
             <Nav variant="tabs" defaultActiveKey="/home">
                 <Nav.Link eventKey="home" ><NavLink to="/">Home</NavLink></Nav.Link>
-                <Nav.Link eventKey="fridge" ><NavLink to="/fridge">My Fridge</NavLink></Nav.Link>
+                <Nav.Link eventKey="fridge" >
+                    <NavLink to={props.user ? '/fridge' : '/login'}>My Fridge</NavLink>
+                </Nav.Link>
                 <Nav.Link eventKey="search" ><NavLink to="/search">Search for Recipes</NavLink></Nav.Link>
                 {props.user ? 
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link> :
