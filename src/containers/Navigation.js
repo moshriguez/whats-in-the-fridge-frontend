@@ -6,9 +6,7 @@ import Nav from "react-bootstrap/Nav"
 
 
 const Navigation = (props) => {
-
     const history = useHistory()
-
 
     const handleLogout = () => {
         history.push("/")

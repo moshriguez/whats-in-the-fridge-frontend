@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import {AiOutlineLock, AiOutlineUser} from 'react-icons/ai'
 
 const userUrl = "http://localhost:3000/api/v1/users"
 const allUsers = "http://localhost:3000/api/v1/usernames"
@@ -43,16 +44,39 @@ const Signup = ({setUser}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={e => handleSignup(e)}>
-                <input onChange={e => handleChange(e)} value={userForm.username} name="username" placeholder="Enter your username..." required/>
-                <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your password..."type="password" required/>
-                <input onChange={e => handleChange(e)} value={userForm.confirm} name="confirm" placeholder="Renter your password..."type="password" required/>                    
-                <input type="submit"/>
-            </form>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+        <div className="form-container">
+            <div className="user-form">
+                <form onSubmit={e => handleSignup(e)}>
+                    <h1>Sign Up</h1>
+                    <label>Create a username</label>
+                    <div className="info-container">
+                        <AiOutlineUser size={23}/>
+                        <input onChange={e => handleChange(e)} value={userForm.username} name="username" placeholder="Enter your username..." required/>
+                    </div>
+                    <label>Create a password</label>
+                    <div className="info-container">
+                        <AiOutlineLock size={23}/>
+                        <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your password..." type="password" required/>
+                    </div>
+                    <label>Confirm your password</label>
+                    <div className="info-container">
+                        <AiOutlineLock size={23}/>
+                        <input onChange={e => handleChange(e)} value={userForm.confirm} name="confirm" placeholder="Enter your password..." type="password" required/>
+                    </div>
+                    <button type="submit">Create account</button>
+                </form>
+                {errors.length ?
+                <div className="error-container">
+                    <h2>Errors</h2>
+                    <ul>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                </div> : null}
+                <div className="signup-container">
+                    <p>Already have an account?</p>
+                    <a href="/login">Login</a>
+                </div>
+            </div>
         </div>
     )
 }

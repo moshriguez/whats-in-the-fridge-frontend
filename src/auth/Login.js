@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import {AiOutlineLock, AiOutlineUser} from 'react-icons/ai'
 
 const loginUrl = "http://localhost:3000/api/v1/login"
 
@@ -38,15 +39,34 @@ const Login = ({setUser}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={e => handleLogin(e)}>
-                <input onChange={e => handleChange(e)} value={userForm.username} name="username" placeholder="Enter your username..." required/>
-                <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your password..."type="password" required/>
-                <input type="submit"/>
-            </form>
-            <ul>
-                {error ? <li>{error}</li> : null}
-            </ul>
+        <div className="form-container">
+            <div className="user-form">
+                <form onSubmit={e => handleLogin(e)}>
+                    <h1>Login</h1>
+                    <label>Username</label>
+                    <div className="info-container">
+                        <AiOutlineUser size={23}/>
+                        <input onChange={e => handleChange(e)} value={userForm.username} name="username" placeholder="Enter your username..." required/>
+                    </div>
+                    <label>Password</label>
+                    <div className="info-container">
+                        <AiOutlineLock size={23}/>
+                        <input onChange={e => handleChange(e)} value={userForm.password} name="password" placeholder="Enter your password..."type="password" required/>
+                    </div>
+                    <button type="submit">Sign in</button>
+                </form>
+                {error ?
+                <div className="error-container">
+                    <h2>Error</h2>
+                    <ul>
+                        <li>{error}</li>
+                    </ul>
+                </div> : null}
+                <div className="signup-container">
+                    <p>Don't have an account?</p>
+                    <a href="/signup">Sign up</a>
+                </div>
+            </div>
         </div>
     )
 }
