@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { FiAlertCircle } from 'react-icons/fi'
 
 const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php`
 const EMPTY_RECEPIE_OBJECT = {
@@ -30,16 +31,25 @@ const Recepie = props => {
         })
     }
 
-    useEffect(() => fetchRecepieObj(props.recepieId), [props.recepieId])
+    const includesIngredient = (userIngredients, ingredientString) => {
+        return userIngredients.some(ingredient => {
+            return ingredient.name.toLowerCase() === ingredientString.toLowerCase()
+        })
+    }
 
+    useEffect(() => fetchRecepieObj(props.recepieId), [props.recepieId])
+    console.log(props.user)
     return (
         <div>
             <h1>{ recepie.strMeal }</h1>
             <h3>Ingredients:</h3>
             <ul>
-                { recepie.ingredients.map(ingredient => {
+                { recepie.ingredients.map((ingredient, index) => {
                     return ( 
-                        <li><Link to={`/search?${ingredient.name}`}>{ingredient.name}</Link>: {ingredient.measure}</li>
+                        <li key={index}>
+                            <Link to={`/search?${ingredient.name}`}>{ingredient.name}</Link>: {ingredient.measure}
+                            {props.user ? includesIngredient(props.user.ingredients, ingredient.name)? null : <FiAlertCircle color="red" /> : null}
+                        </li>
                     );
                 })}
             </ul>
