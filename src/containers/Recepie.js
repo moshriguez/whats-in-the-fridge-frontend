@@ -5,39 +5,39 @@ import { FiAlertCircle } from 'react-icons/fi'
 const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php`
 const EMPTY_RECEPIE_OBJECT = {
     ingredients: [],
-    strInstructions: "Loading recepie..."
+    strInstructions: "Loading recipe..."
 }
 
 const NULL_RECEPIE_OBJECT = {
     ingredients: [],
-    strInstructions: "No recepie found"
+    strInstructions: "No recipe found"
 }
 
-const Recepie = props => {
+const Recipe = props => {
 
-    const [recepie, setRecepie] = useState(EMPTY_RECEPIE_OBJECT)
+    const [recipe, setRecipe] = useState(EMPTY_RECEPIE_OBJECT)
 
-    const fetchRecepieObj = (id) => {
+    const fetchRecipeObj = (id) => {
         fetch(`${URL}?i=${id}`).then(resp => resp.json()).then(json => {
             if(!json.meals) {
-                setRecepie(NULL_RECEPIE_OBJECT)
+                setRecipe(NULL_RECEPIE_OBJECT)
                 return
             }
 
-            let recepie = json.meals[0]
-            recepie.ingredients = [];
+            let recipe = json.meals[0]
+            recipe.ingredients = [];
             for (let i = 1; i <= 20; i++) {
                 let ingredientKey = `strIngredient${i}`;
                 let measureKey = `strMeasure${i}`
-                if (recepie[ingredientKey] !== null && recepie[ingredientKey] !== "") {
-                    recepie.ingredients.push({name: recepie[ingredientKey], measure: recepie[measureKey]})
+                if (recipe[ingredientKey] !== null && recipe[ingredientKey] !== "") {
+                    recipe.ingredients.push({name: recipe[ingredientKey], measure: recipe[measureKey]})
                 }
 
-                delete recepie[ingredientKey]
-                delete recepie[measureKey]
+                delete recipe[ingredientKey]
+                delete recipe[measureKey]
             }
-            console.log(recepie)
-            setRecepie(recepie)
+            console.log(recipe)
+            setRecipe(recipe)
         })
     }
 
@@ -48,16 +48,16 @@ const Recepie = props => {
     }
 
     let queryId = useLocation().search.slice(1);
-    
-    useEffect(() => fetchRecepieObj(queryId), [queryId])
+
+    useEffect(() => fetchRecipeObj(queryId), [queryId])
 
     return (
         <div>
-            <h1>{ recepie.strMeal }</h1>
-            <img src={recepie.strMealThumb} alt={recepie.strMeal} />
+            <h1>{ recipe.strMeal }</h1>
+            <img src={recipe.strMealThumb} alt={recipe.strMeal} />
             <h3>Ingredients:</h3>
             <ul>
-                { recepie.ingredients.map((ingredient, index) => {
+                { recipe.ingredients.map((ingredient, index) => {
                     return ( 
                         <li key={index}>
                             <Link to={{pathname: `/search`, search: `${ingredient.name}`}}>{ingredient.name}</Link>: {ingredient.measure}
@@ -67,9 +67,9 @@ const Recepie = props => {
                 })}
             </ul>
             <h3>Instructions:</h3>
-            <p>{ recepie.strInstructions }</p>
+            <p>{ recipe.strInstructions }</p>
         </div>
     );
 }
 
-export default Recepie;
+export default Recipe;

@@ -7,7 +7,7 @@ import Fridge from "./containers/Fridge"
 import Login from "./auth/Login"
 import SearchForRecipes from "./containers/SearchForRecipes"
 import Signup from "./auth/Signup"
-import Recepie from "./containers/Recepie"
+import Recipe from "./containers/Recipe"
 
 function App() {
     const [user, setUser] = useState(null)
@@ -38,7 +38,7 @@ function App() {
             <Route exact path="/" render={() => <Home user={user}/>}/>
             <Route exact path="/fridge" render={() => <Fridge user={user} setUser={setUser} ingredients={ingredients}/>}/>
             <Route exact path="/search" render={() => <SearchForRecipes />}/>
-            <Route exact path="/recepie" render={() => <Recepie user={user} />} />
+            <Route exact path="/recipe" render={() => <Recipe user={user} />} />
             {user ? null :
                 <>
                     <Route exact path="/login" render={() => <Login setUser={setUser}/>}/>
