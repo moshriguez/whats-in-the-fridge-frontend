@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import React, { useState } from 'react'
-=======
 import { search } from 'language-tags'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
->>>>>>> main
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const URL = "https://www.themealdb.com/api/json/v1/1/filter.php";
