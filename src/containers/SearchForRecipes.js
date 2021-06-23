@@ -1,5 +1,6 @@
 import { search } from 'language-tags'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const URL = "https://www.themealdb.com/api/json/v1/1/filter.php";
@@ -8,6 +9,20 @@ const SearchForRecipes = (props) => {
 
     const [searchResults, setSearchResults] = useState([])
     const [searchBarValue, setSearchBarValue] = useState("")
+
+    // useLocation cannot be called from a callback function...
+    let query = useLocation().search
+    // handles fetching of recipies when user clicks on an item in their fridge
+    useEffect(() => {
+        if (query !== '') {
+            // console.log(query.slice(1))
+            setSearchBarValue(query.slice(1))
+            fetchRecepies(query.slice(1))
+        } else {
+            setSearchBarValue('')
+            setSearchResults([])
+        }
+    }, [query]) 
 
     const handleSearch = event => {
         event.preventDefault();
