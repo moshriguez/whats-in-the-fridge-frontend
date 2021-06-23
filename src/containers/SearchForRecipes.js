@@ -43,23 +43,23 @@ const SearchForRecipes = (props) => {
     }
 
     return (
-        <div>
-            <div>
+        <div className="search-page">
+            <div className="recipe-search">
                 <form onSubmit={handleSearch} >
-                    <div className="info-container">
-                        <AiOutlineSearch />
+                    <div className="search-container">
+                        <AiOutlineSearch size={25}/>
                         <input onChange={handleChange} value={searchBarValue} placeholder="Search for an ingredient..." required/>
                     </div>
                 </form>
             </div>
-                {
-                    (searchResults === null)? "No results found" :
-                    (searchResults.length === 0)? "Search for an ingredient to find new recipes" :
+                {   
+                    (searchResults === null) ? <div className="msg"><p>No results found</p></div> :
+                    (searchResults.length === 0)? <div className="msg"><p>Search for an ingredient to find new recipes</p></div> :
                     <div className="card-container" >
                         {
                             searchResults.map(result => {
                                 return (
-                                    <div className="card" style={{width: 18 + 'rem'}} key={result.idMeal} >
+                                    <div className="card" key={result.idMeal} >
                                         <img className="card-img-top" src={result.strMealThumb} alt={result.strMeal} />
                                         <div className="card-body">
                                             <h5 className="card-title">{result.strMeal}</h5>
@@ -71,7 +71,7 @@ const SearchForRecipes = (props) => {
                         }
                     </div>
                 }
-            </div>
+        </div>
     )
 }
 

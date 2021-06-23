@@ -1,3 +1,12 @@
+body {
+    background: rgb(2, 2, 37);
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
+
 .form-container {
     height: calc(100vh - 58px);
     display: flex;
@@ -18,13 +27,13 @@
     text-align: center;
 }
 
-.user-form input:focus {
+.user-form input:focus, .search-container input {
     outline: none;
 }
 
-.user-form input::-webkit-input-placeholder {
+input::-webkit-input-placeholder {
     color: black;
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .user-form label {
@@ -65,13 +74,6 @@
 .error-container h2 {
     background-color: red;
     font-size: 20px;
-}
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    z-index: -1;
 }
 
 #home-container {
@@ -126,4 +128,82 @@
 
 .list-group-item {
     width: 100%
+}
+
+.search-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 58px);
+}
+
+.search-page p {
+    align-self: center;
+    vertical-align: middle;
+}
+
+.recipe-search {
+    margin-top: 20px;
+}
+
+.recipe-search form {
+    display: flex;
+    justify-content: center;
+}
+
+.search-container {
+    width: clamp(500px, 50%, 800px);
+    border: 2px solid black;
+}
+
+.search-container input {
+    height: 100%;
+    width: calc(100% - 27px);
+    border: none;
+    border-left: 2px solid black;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: space-between;
+    justify-content: center;
+    margin-top: 20px;
+    max-width: 1800px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    width: 18rem;
+    height: 25rem;
+}
+
+.card-img-top {
+    height: 17rem;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.card-body h5 {
+    text-align: center;
+    width: 100%;
+}
+
+.card-body a {
+    margin-top: auto;
+}
+
+.msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: clamp(20px, 5vw, 30px)
 }
