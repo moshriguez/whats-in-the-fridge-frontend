@@ -42,12 +42,13 @@ const Recepie = props => {
     return (
         <div>
             <h1>{ recepie.strMeal }</h1>
+            <img src={recepie.strMealThumb} alt={recepie.strMeal} />
             <h3>Ingredients:</h3>
             <ul>
                 { recepie.ingredients.map((ingredient, index) => {
                     return ( 
                         <li key={index}>
-                            <Link to={`/search?${ingredient.name}`}>{ingredient.name}</Link>: {ingredient.measure}
+                            <Link to={{pathname: `/search`, search: `${ingredient.name}`}}>{ingredient.name}</Link>: {ingredient.measure}
                             {props.user ? includesIngredient(props.user.ingredients, ingredient.name)? null : <FiAlertCircle color="red" /> : null}
                         </li>
                     );
