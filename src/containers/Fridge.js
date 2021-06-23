@@ -9,17 +9,19 @@ import {
 	Modal,
 	Row,
 } from 'react-bootstrap';
+import Ingredient from '../components/Ingredients';
 // import ListGroup from "react-bootstrap/ListGroup"
 
 const userUrl = "http://localhost:3000/api/v1/users/"
 
-const Fridge = ({ user, setUser }) => {
+const Fridge = ({ user, setUser, ingredients }) => {
 	// Pass reference to useHistory hook
 	const history = useHistory()
 	const token = localStorage.getItem('jwt')
     // To Show Modal
 	const [show, setShow] = useState(false);
 	const [confirm, setConfirm] = useState(false);
+	const [showSearch, setSearch] = useState(false)
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const showConfirm = () => setConfirm(!confirm)
@@ -97,7 +99,10 @@ const Fridge = ({ user, setUser }) => {
 
 				{/* The Fridge */}
 				<Col className="the-fridge">
-					<h2>The Fridge</h2>
+					<div className="fridge-header">
+						<h2>The Fridge</h2>
+						<Button onClick={() => setSearch(!showSearch)}>Add Ingredient</Button>
+					</div>
 					<ListGroup variant="flush">
 						{user.user_ingredients.map(ui => {
 							return (
@@ -179,9 +184,8 @@ const Fridge = ({ user, setUser }) => {
 							Yes
 						</Button>						
 					</Modal.Body>
-					<Modal.Footer>
-					</Modal.Footer>
 				</Modal>
+				<Ingredient user={user} setUser={setUser} showSearch={showSearch} setSearch={setSearch} ingredients={ingredients}/>
 			</Row>
 		</Container> : null
 	);

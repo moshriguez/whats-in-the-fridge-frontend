@@ -90,5 +90,32 @@
 }
 
 .nav-link {
-    color: blue !important
+    color: blue !important;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+.fridge-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.fridge-header h2 {
+    margin-right: 20px;
+}
+
+.fridge-header button {
+    height: 50px;
+}
+
+.ingredient-btn {
+    display: flex;
+    align-items: center;
+}
+
+.ingredient-btn svg {
+    margin-left: auto;
 }
