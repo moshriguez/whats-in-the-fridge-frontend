@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FiAlertCircle } from 'react-icons/fi'
 
 const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php`
@@ -8,12 +8,22 @@ const EMPTY_RECEPIE_OBJECT = {
     strInstructions: "Loading recepie..."
 }
 
+const NULL_RECEPIE_OBJECT = {
+    ingredients: [],
+    strInstructions: "No recepie found"
+}
+
 const Recepie = props => {
 
     const [recepie, setRecepie] = useState(EMPTY_RECEPIE_OBJECT)
 
     const fetchRecepieObj = (id) => {
         fetch(`${URL}?i=${id}`).then(resp => resp.json()).then(json => {
+            if(!json.meals) {
+                setRecepie(NULL_RECEPIE_OBJECT)
+                return
+            }
+
             let recepie = json.meals[0]
             recepie.ingredients = [];
             for (let i = 1; i <= 20; i++) {
@@ -37,8 +47,10 @@ const Recepie = props => {
         })
     }
 
-    useEffect(() => fetchRecepieObj(props.recepieId), [props.recepieId])
-    console.log(props.user)
+    let queryId = useLocation().search.slice(1);
+    
+    useEffect(() => fetchRecepieObj(queryId), [queryId])
+
     return (
         <div>
             <h1>{ recepie.strMeal }</h1>

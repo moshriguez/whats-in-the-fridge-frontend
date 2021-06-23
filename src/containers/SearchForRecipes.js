@@ -1,6 +1,6 @@
 import { search } from 'language-tags'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const URL = "https://www.themealdb.com/api/json/v1/1/filter.php";
@@ -59,12 +59,13 @@ const SearchForRecipes = (props) => {
                     <div className="card-container" >
                         {
                             searchResults.map(result => {
+                                console.log(result)
                                 return (
-                                    <div className="card" style={{width: 18 + 'rem'}} mealId={result.idMeal} >
+                                    <div className="card" style={{width: 18 + 'rem'}} key={result.idMeal} >
                                         <img className="card-img-top" src={result.strMealThumb} alt={result.strMeal} />
                                         <div className="card-body">
-                                            <h5 class="card-title">{result.strMeal}</h5>
-                                            <a href="">TODO: Put a link here to full recepie</a>
+                                            <h5 className="card-title">{result.strMeal}</h5>
+                                            <Link to={{pathname: `/recepie`, search: `${result.idMeal}`}}>View Recepie</Link>
                                         </div>
                                     </div>
                                 );
