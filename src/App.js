@@ -38,10 +38,11 @@ function App() {
             <Route exact path="/fridge" render={() => <Fridge user={user} setUser={setUser} ingredients={ingredients}/>}/>
             <Route exact path="/search" render={() => <SearchForRecipes />}/>
             {user ? null :
-            <>
-                <Route exact path="/login" render={() => <Login setUser={setUser}/>}/>
-                <Route exact path="/signup" render={() => <Signup setUser={setUser}/>}/>
-            </>}
+                <>
+                    <Route exact path="/login" render={() => <Login setUser={setUser}/>}/>
+                    <Route exact path="/signup" render={() => <Signup setUser={setUser}/>}/>
+                </>
+            }
         </Router>
     )
 }

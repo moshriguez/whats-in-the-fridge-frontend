@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { Link, NavLink } from 'react-router-dom'
 import { Nav, Navbar } from 'react-bootstrap'
 
@@ -19,7 +19,10 @@ const Navigation = ({user, setUser}) => {
             <Navbar.Collapse className="justify-content-end">
             <Nav variant="tabs">
                 <Nav.Link eventKey={1} as={Link} to="/">Home</Nav.Link>
-                <Nav.Link eventKey={2} as={NavLink} to={user ? '/fridge' : '/login'}>My Fridge</Nav.Link>
+                {user ?
+                    <Nav.Link eventKey={2} as={NavLink} to='/fridge'>My Fridge</Nav.Link> :
+                    <Nav.Link href='/login'>My Fridge</Nav.Link>
+                }
                 <Nav.Link eventKey={3} as={NavLink} to="/search" >Search for Recipes</Nav.Link>
                 {user ? 
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link> :
