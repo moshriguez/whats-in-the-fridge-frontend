@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
 	Button,
 	Col,
@@ -127,18 +127,26 @@ const Fridge = ({ user, setUser, ingredients }) => {
 					<ListGroup variant="flush">
 						{user.user_ingredients.map(ui => {
 							return (
+							<>
 								<ListGroup.Item
 									key={ui.id}
 									id={ui.id}
 									ingredient={ui.ingredient.id}
 									action
 									variant="info"
+									as={Link}
+									to={{
+										pathname: "/search",
+										search: `${ui.ingredient.name}`,
+									}}
 								>
 									{ui.ingredient.name}
-									<Button className="x-btn" name={ui.id} variant="outline-secondary" size="sm" onClick={removeIngredientFromFridge}>
-										X
-									</Button>
 								</ListGroup.Item>
+								{/* need to fix button placement */}
+								<Button className="x-btn" name={ui.id} variant="outline-secondary" size="sm" onClick={removeIngredientFromFridge}>
+									X
+								</Button>
+							</>
 							);
 						})}
 					</ListGroup>
