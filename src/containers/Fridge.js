@@ -12,6 +12,7 @@ import {
 // import ListGroup from "react-bootstrap/ListGroup"
 
 const userUrl = "http://localhost:3000/api/v1/users/"
+const userIngredientURL = "http://localhost:3000/api/v1/user_ingredients/"
 
 const Fridge = ({ user, setUser }) => {
 	// Pass reference to useHistory hook
@@ -72,6 +73,26 @@ const Fridge = ({ user, setUser }) => {
 		})
 	};
 
+	// Removes Ingredient from Fridge
+	const removeIngredientFromFridge = (e) => {
+		const config = {
+			method: 'DELETE',
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		}
+		fetch(userIngredientURL + e.target.name, config)
+		.then(r => r.json())
+		.then(() => {
+			const updatedUser = {...user}
+			updatedUser.user_ingredients = updatedUser.user_ingredients.filter(ui => ui.id !== parseInt(e.target.name))
+			setUser(updatedUser)
+
+		})
+	}
+
 	return (
 		user ?
 		<Container>
@@ -99,14 +120,17 @@ const Fridge = ({ user, setUser }) => {
 				<Col className="the-fridge">
 					<h2>The Fridge</h2>
 					<ListGroup variant="flush">
-						{user.ingredients.map((ingredient) => {
+						{user.user_ingredients.map((ui) => {
 							return (
 								<ListGroup.Item
-									key={ingredient.id}
+									key={ui.id}
 									action
 									variant="info"
 								>
-									{ingredient.name}
+									{ui.ingredient.name}
+									<Button className="x-btn" name={ui.id} variant="outline-secondary" size="sm" onClick={removeIngredientFromFridge}>
+										X
+									</Button>
 								</ListGroup.Item>
 							);
 						})}

@@ -92,3 +92,7 @@
 .nav-link {
     color: blue !important
 }
+
+.x-btn {
+    float: right;
+}
