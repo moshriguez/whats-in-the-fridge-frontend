@@ -118,4 +118,9 @@
 
 .ingredient-btn svg {
     margin-left: auto;
+    color: blue !important
+}
+
+.x-btn {
+    float: right;
 }
