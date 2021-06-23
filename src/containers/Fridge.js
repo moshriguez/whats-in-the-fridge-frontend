@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
 	Button,
@@ -28,8 +28,8 @@ const Fridge = ({ user, setUser, ingredients }) => {
 	const showConfirm = () => setConfirm(!confirm)
     
     // Controlled form for edit user
-    const [userBio, setUserBio] = useState(user ? user.bio : "")
-    const [userFavFood, setUserFF] = useState(user ? user.favorite_food : "")
+    const [userBio, setUserBio] = useState("")
+    const [userFavFood, setUserFF] = useState("")
 
     const handleChangeBio = (e) => {
         setUserBio(e.target.value)
@@ -37,6 +37,12 @@ const Fridge = ({ user, setUser, ingredients }) => {
     const handleChangeFF = (e) => {
         setUserFF(e.target.value)
     }
+
+	// Changes edit fields when user is updated
+	useEffect(() => {
+		setUserBio(user ? user.bio : "")
+		setUserFF((user ? user.favorite_food : ""))
+	}, [user])
 
 	// Delete an account
 	const deleteAccount = () => {
@@ -76,7 +82,7 @@ const Fridge = ({ user, setUser, ingredients }) => {
 	};
 
 	// Removes Ingredient from Fridge
-	const removeIngredientFromFridge = (e) => {
+	const removeIngredientFromFridge = id => {
 		const config = {
 			method: 'DELETE',
 			headers: {
@@ -85,11 +91,11 @@ const Fridge = ({ user, setUser, ingredients }) => {
 				Authorization: `Bearer ${token}`
 			}
 		}
-		fetch(userIngredientURL + e.target.name, config)
+		fetch(userIngredientURL + id, config)
 		.then(r => r.json())
 		.then(() => {
 			const updatedUser = {...user}
-			updatedUser.user_ingredients = updatedUser.user_ingredients.filter(ui => ui.id !== parseInt(e.target.name))
+			updatedUser.user_ingredients = updatedUser.user_ingredients.filter(ui => ui.id !== parseInt(id))
 			setUser(updatedUser)
 
 		})
@@ -129,13 +135,11 @@ const Fridge = ({ user, setUser, ingredients }) => {
 							return (
 								<ListGroup.Item
 									key={ui.id}
-									id={ui.id}
-									ingredient={ui.ingredient.id}
-									action
+									as="li"
 									variant="info"
 								>
 									{ui.ingredient.name}
-									<Button className="x-btn" name={ui.id} variant="outline-secondary" size="sm" onClick={removeIngredientFromFridge}>
+									<Button className="x-btn" name={ui.id} variant="outline-secondary" size="sm" onClick={e => removeIngredientFromFridge(e.target.name)}>
 										X
 									</Button>
 								</ListGroup.Item>
@@ -209,7 +213,14 @@ const Fridge = ({ user, setUser, ingredients }) => {
 						</Button>						
 					</Modal.Body>
 				</Modal>
-				<Ingredient user={user} setUser={setUser} showSearch={showSearch} setSearch={setSearch} ingredients={ingredients}/>
+				<Ingredient 
+					user={user} 
+					setUser={setUser} 
+					showSearch={showSearch} 
+					setSearch={setSearch} 
+					ingredients={ingredients}
+					removeIngredientFromFridge={removeIngredientFromFridge}
+				/>
 			</Row>
 		</Container> : null
 	);

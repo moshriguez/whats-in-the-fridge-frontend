@@ -111,16 +111,14 @@
     height: 50px;
 }
 
-.ingredient-btn {
-    display: flex;
-    align-items: center;
+.ingredient-btn .plus:hover {
+    background-color: rgba(2, 122, 2, 0.4);
 }
 
-.ingredient-btn svg {
-    margin-left: auto;
-    color: blue !important
+.ingredient-btn .minus:hover {
+    background-color: rgba(255, 0, 0, 0.4);
 }
 
-.x-btn {
+.x-btn, .minus, .plus {
     float: right;
 }
