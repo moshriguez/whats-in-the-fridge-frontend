@@ -52,14 +52,12 @@ const SearchForRecipes = (props) => {
                     </div>
                 </form>
             </div>
-            <div className="form-container">
                 {
                     (searchResults === null)? "No results found" :
                     (searchResults.length === 0)? "Search for an ingredient to find new recipes" :
                     <div className="card-container" >
                         {
                             searchResults.map(result => {
-                                console.log(result)
                                 return (
                                     <div className="card" style={{width: 18 + 'rem'}} key={result.idMeal} >
                                         <img className="card-img-top" src={result.strMealThumb} alt={result.strMeal} />
@@ -74,7 +72,6 @@ const SearchForRecipes = (props) => {
                     </div>
                 }
             </div>
-        </div>
     )
 }
 

@@ -21,29 +21,28 @@ const Recipe = props => {
         fetch(`${URL}?i=${id}`).then(resp => resp.json()).then(json => {
             if(!json.meals) {
                 setRecipe(NULL_RECEPIE_OBJECT)
-                return
-            }
+            } else {
+                let recipe = json.meals[0]
+                recipe.ingredients = [];
+                for (let i = 1; i <= 20; i++) {
+                    let ingredientKey = `strIngredient${i}`;
+                    let measureKey = `strMeasure${i}`
+                    if (recipe[ingredientKey] !== null && recipe[ingredientKey] !== "") {
+                        recipe.ingredients.push({name: recipe[ingredientKey], measure: recipe[measureKey]})
+                    }
 
-            let recipe = json.meals[0]
-            recipe.ingredients = [];
-            for (let i = 1; i <= 20; i++) {
-                let ingredientKey = `strIngredient${i}`;
-                let measureKey = `strMeasure${i}`
-                if (recipe[ingredientKey] !== null && recipe[ingredientKey] !== "") {
-                    recipe.ingredients.push({name: recipe[ingredientKey], measure: recipe[measureKey]})
+                    delete recipe[ingredientKey]
+                    delete recipe[measureKey]
                 }
-
-                delete recipe[ingredientKey]
-                delete recipe[measureKey]
+                console.log(recipe)
+                setRecipe(recipe)
             }
-            console.log(recipe)
-            setRecipe(recipe)
         })
     }
 
     const includesIngredient = (userIngredients, ingredientString) => {
         return userIngredients.some(ingredient => {
-            return ingredient.name.toLowerCase() === ingredientString.toLowerCase()
+            return ingredient.ingredient.name.toLowerCase() === ingredientString.toLowerCase()
         })
     }
 
@@ -58,10 +57,11 @@ const Recipe = props => {
             <h3>Ingredients:</h3>
             <ul>
                 { recipe.ingredients.map((ingredient, index) => {
+                    console.log(props.user)
                     return ( 
                         <li key={index}>
                             <Link to={{pathname: `/search`, search: `${ingredient.name}`}}>{ingredient.name}</Link>: {ingredient.measure}
-                            {props.user ? includesIngredient(props.user.ingredients, ingredient.name)? null : <FiAlertCircle color="red" /> : null}
+                            {props.user ? includesIngredient(props.user.user_ingredients, ingredient.name)? null : <FiAlertCircle color="red" /> : null}
                         </li>
                     );
                 })}
