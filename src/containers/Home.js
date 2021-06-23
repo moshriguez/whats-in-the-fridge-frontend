@@ -1,4 +1,5 @@
 import React from 'react'
+import {RiFridgeLine} from 'react-icons/ri'
 
 const Home = (props) => {
     return (
