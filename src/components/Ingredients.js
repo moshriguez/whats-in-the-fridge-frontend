@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import {Form, Col, ListGroup, Modal} from 'react-bootstrap';
-import {FiMinusCircle, FiPlusCircle} from 'react-icons/fi'
+import {Form, Col, ListGroup, Modal, Button} from 'react-bootstrap';
 
 const userIngredientsUrl = "http://localhost:3000/api/v1/user_ingredients/"
 const token = localStorage.getItem("jwt")
 
-const Ingredient = ({user, setUser, showSearch, setSearch, ingredients}) => {
+const Ingredient = ({user, setUser, showSearch, setSearch, ingredients, removeIngredientFromFridge}) => {
     // State for search results
     const [input, setInput] = useState("")
     const [searchResults, setSearchResults] = useState(null)
@@ -40,30 +39,20 @@ const Ingredient = ({user, setUser, showSearch, setSearch, ingredients}) => {
         fetch(userIngredientsUrl, config)
         .then(r => r.json())
         .then(data => {
-            setUser(data.user)
-        })
-    }
-
-    // Removes ingredient from user's fridge
-    const handleRemoveIngredient = id => {
-        const userIngredientId = user.user_ingredients.find(ui => ui.ingredient.id === id).id
-        const config = {
-            method: "DELETE",
-            headers: {"Authorization": `Bearear ${token}`}
-        }
-        fetch(userIngredientsUrl + userIngredientId, config)
-        .then(r => r.json())
-        .then(data => {
-            setUser(data.user)
+            const updatedUser = {...user}
+            updatedUser.user_ingredients = [...updatedUser.user_ingredients, data.user_ingredient]
+            setUser(updatedUser)
         })
     }
 
     // Toggles between adding and deleting ingredient
     const userIngredients = user.user_ingredients.map(i => i.ingredient.id)
-    
+
     const handleAddDelete = e => {
-        const ingredient_id = parseInt(e.target.closest("button").getAttribute("ingredient"))
-        userIngredients.includes(ingredient_id) ? handleRemoveIngredient(ingredient_id) : handleAddIngredient(ingredient_id)
+        const ingredient_id = parseInt(e.target.name)
+        const findUserIngredient = user.user_ingredients.find(ui => ui.ingredient.id === ingredient_id)
+        const userIngredientId = findUserIngredient ? findUserIngredient.id : null
+        findUserIngredient ? removeIngredientFromFridge(userIngredientId) : handleAddIngredient(ingredient_id)
     }
 
     return (
@@ -91,18 +80,22 @@ const Ingredient = ({user, setUser, showSearch, setSearch, ingredients}) => {
                 <ListGroup variant="flush">
                     {searchResults.map(ingredient => {
                         return (
-                            <ListGroup.Item 
-                                action 
+                            <ListGroup.Item
+                                as="li"
                                 key={ingredient.id} 
-                                onClick={e => handleAddDelete(e)} 
-                                ingredient={ingredient.id} 
                                 variant="primary"
                             >
                                 <div className="ingredient-btn">
                                     {ingredient.name}
-                                    {userIngredients.includes(ingredient.id) ? 
-                                    <FiMinusCircle style={{fill: "red", stroke: "black"}} size={30}/> : 
-                                    <FiPlusCircle style={{fill: "green", stroke: "black"}} size={30}/>}
+                                    <Button 
+                                        className={userIngredients.includes(ingredient.id) ? "minus" : "plus"} 
+                                        name={ingredient.id} 
+                                        variant="outline-secondary" 
+                                        size="sm" 
+                                        onClick={e => handleAddDelete(e)}
+                                    >
+										{userIngredients.includes(ingredient.id) ? "-" : "+"}
+									</Button>
                                 </div>
                             </ListGroup.Item>
                         );
