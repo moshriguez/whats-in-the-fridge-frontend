@@ -40,7 +40,7 @@ const Login = ({setUser}) => {
 
     const handleLogin= e => {
         e.preventDefault()
-        sendAuthInfo(userForm, loginUrl)
+        sendAuthInfo({...userForm, username: userForm.username.toLowerCase()}, loginUrl)
     }
 
     return (

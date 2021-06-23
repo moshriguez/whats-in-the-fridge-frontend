@@ -1,5 +1,5 @@
-import { useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Nav, Navbar } from 'react-bootstrap'
 
 
@@ -17,13 +17,16 @@ const Navigation = ({user, setUser}) => {
             <Navbar.Brand>What's in the Fridge?</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className="justify-content-end">
-            <Nav variant="tabs" defaultActiveKey="/">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link eventKey={2} as={Link} to={user ? '/fridge' : '/login'}>My Fridge</Nav.Link>
-                <Nav.Link eventKey={3} as={Link} to="/search" >Search for Recipes</Nav.Link>
+            <Nav variant="tabs">
+                <Nav.Link eventKey={1} as={Link} to="/">Home</Nav.Link>
+                {user ?
+                    <Nav.Link eventKey={2} as={NavLink} to='/fridge'>My Fridge</Nav.Link> :
+                    <Nav.Link href='/login'>My Fridge</Nav.Link>
+                }
+                <Nav.Link eventKey={3} as={NavLink} to="/search" >Search for Recipes</Nav.Link>
                 {user ? 
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link> :
-                <Nav.Link eventKey={4} as={Link} to="/login">Login</Nav.Link>
+                <Nav.Link eventKey={4} as={NavLink} to="/login">Login</Nav.Link>
                 }
             </Nav>
             </Navbar.Collapse>
