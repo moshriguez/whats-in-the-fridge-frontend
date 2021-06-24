@@ -35,7 +35,7 @@ const Signup = ({setUser}) => {
         e.preventDefault()
         fetch(allUsers).then(r => r.json()).then(data => {
             const newErrors = []
-            data.usernames.includes(userForm.username) ? newErrors.push("The username you have entered is already taken") : console.log()
+            data.usernames.includes(userForm.username.toLowerCase()) ? newErrors.push("The username you have entered is already taken") : console.log()
             userForm.password !== userForm.confirm ? newErrors.push("The password you have entered does not match") : console.log()
             userForm.password.length < 6 || userForm.confirm.length < 6 ? newErrors.push("Your password must be at least 6 characters") : console.log()
             setErrors(newErrors)
