@@ -1,4 +1,4 @@
-import { Redirect, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Link, NavLink } from 'react-router-dom'
 import { Nav, Navbar } from 'react-bootstrap'
 

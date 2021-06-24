@@ -133,10 +133,8 @@ const Fridge = ({ user, setUser, ingredients }) => {
 					<ListGroup variant="flush">
 						{user.user_ingredients.map(ui => {
 							return (
-							<ListGroup horizontal>
+							<ListGroup key={ui.id} horizontal>
 								<ListGroup.Item
-									key={ui.id}
-									as="li"
 									variant="info"
 									as={Link}
 									to={{
@@ -146,7 +144,6 @@ const Fridge = ({ user, setUser, ingredients }) => {
 								>
 									{ui.ingredient.name}
 								</ListGroup.Item>
-								{/* need to fix button placement */}
 								<Button className="x-btn" name={ui.id} variant="outline-secondary" size="sm" onClick={e => removeIngredientFromFridge(e.target.name)}>
 									X
 								</Button>
