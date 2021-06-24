@@ -79,24 +79,27 @@ const Ingredient = ({user, setUser, showSearch, setSearch, ingredients, removeIn
             {searchResults ?
             <Col className="ingredients">
                 <motion.div className="list-group list-group-flush" initial="start" animate="end">
-                    {searchResults.map((ingredient, idx) => {
-                        return (
-                            <motion.li variants={childVar(idx)} className="list-group-item list-group-item-primary" key={ingredient.id}>
-                                <div className="ingredient-btn">
-                                    {ingredient.name}
-                                    <Button 
-                                        className={userIngredients.includes(ingredient.id) ? "minus" : "plus"} 
-                                        name={ingredient.id} 
-                                        variant="outline-secondary" 
-                                        size="sm" 
-                                        onClick={e => handleAddDelete(e)}
-                                    >
-										{userIngredients.includes(ingredient.id) ? "-" : "+"}
-									</Button>
-                                </div>
-                            </motion.li>
-                        );
-                    })}
+                    {   searchResults.length ?
+                        searchResults.map((ingredient, idx) => {
+                            return (
+                                <motion.li variants={childVar(idx)} className="list-group-item list-group-item-primary" key={ingredient.id}>
+                                    <div className="ingredient-btn">
+                                        {ingredient.name}
+                                        <Button 
+                                            className={userIngredients.includes(ingredient.id) ? "minus" : "plus"} 
+                                            name={ingredient.id} 
+                                            variant="outline-secondary" 
+                                            size="sm" 
+                                            onClick={e => handleAddDelete(e)}
+                                        >
+                                            {userIngredients.includes(ingredient.id) ? "-" : "+"}
+                                        </Button>
+                                    </div>
+                                </motion.li>
+                            )
+                        }) :
+                        <motion.li className="ing-null" variants={childVar(1)}>No results found...</motion.li>
+                    }
                 </motion.div>
             </Col> : null}
             <Modal.Footer></Modal.Footer>

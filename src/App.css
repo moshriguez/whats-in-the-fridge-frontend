@@ -279,3 +279,8 @@ input::-webkit-input-placeholder {
     min-width: 344px;
     padding: 20px 0 20px 0;
 }
+
+.ing-null {
+    list-style: none;
+    text-align: center;
+}
