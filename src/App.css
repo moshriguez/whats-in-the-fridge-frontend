@@ -9,9 +9,11 @@ body::-webkit-scrollbar {
 
 .form-container {
     height: calc(100vh - 58px);
+    min-height: 565px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid red;
 }
 
 .user-form{
