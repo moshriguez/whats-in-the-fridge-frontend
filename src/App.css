@@ -113,12 +113,20 @@ input::-webkit-input-placeholder {
     height: 50px;
 }
 
-.ingredient-btn .plus:hover {
+.ingredient-btn .plus {
     background-color: rgba(2, 122, 2, 0.4);
 }
 
-.ingredient-btn .minus:hover {
+.ingredient-btn .plus:hover {
+    background-color: rgba(2, 122, 2, 0.7);
+}
+
+.ingredient-btn .minus {
     background-color: rgba(255, 0, 0, 0.4);
+}
+
+.ingredient-btn .minus:hover {
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 .x-btn, .minus, .plus {
@@ -265,4 +273,9 @@ input::-webkit-input-placeholder {
 
 .msg2 {
     height: calc(100vh - 58px);
+}
+
+.col {
+    min-width: 344px;
+    padding: 20px 0 20px 0;
 }

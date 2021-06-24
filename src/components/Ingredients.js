@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion'
 import {Form, Col, ListGroup, Modal, Button} from 'react-bootstrap';
 
 const userIngredientsUrl = "http://localhost:3000/api/v1/user_ingredients/"
@@ -77,14 +78,10 @@ const Ingredient = ({user, setUser, showSearch, setSearch, ingredients, removeIn
             </Modal.Body>
             {searchResults ?
             <Col className="ingredients">
-                <ListGroup variant="flush">
-                    {searchResults.map(ingredient => {
+                <motion.div className="list-group list-group-flush" initial="start" animate="end">
+                    {searchResults.map((ingredient, idx) => {
                         return (
-                            <ListGroup.Item
-                                as="li"
-                                key={ingredient.id} 
-                                variant="primary"
-                            >
+                            <motion.li variants={childVar(idx)} className="list-group-item list-group-item-primary" key={ingredient.id}>
                                 <div className="ingredient-btn">
                                     {ingredient.name}
                                     <Button 
@@ -97,10 +94,10 @@ const Ingredient = ({user, setUser, showSearch, setSearch, ingredients, removeIn
 										{userIngredients.includes(ingredient.id) ? "-" : "+"}
 									</Button>
                                 </div>
-                            </ListGroup.Item>
+                            </motion.li>
                         );
                     })}
-                </ListGroup>
+                </motion.div>
             </Col> : null}
             <Modal.Footer></Modal.Footer>
         </Modal>
@@ -108,3 +105,19 @@ const Ingredient = ({user, setUser, showSearch, setSearch, ingredients, removeIn
 }
 
 export default Ingredient
+
+const childVar = index => {
+    return {
+        start: {
+            opacity: 0,
+            y: -25
+        },
+        end: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: index * 0.05
+            }
+        }
+    }
+}
