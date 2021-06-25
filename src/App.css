@@ -158,13 +158,12 @@ input::-webkit-input-placeholder {
 }
 
 .search-container {
-    width: clamp(500px, 50%, 800px);
+    width: clamp(475px, 50%, 800px);
     border: 2px solid black;
 }
 
 .search-container input {
     height: 100%;
-    width: calc(100% - 27px);
     border: none;
     border-left: 2px solid black;
 }
@@ -176,6 +175,7 @@ input::-webkit-input-placeholder {
     justify-content: center;
     margin-top: 20px;
     max-width: 1800px;
+    align-self: center;
 }
 
 .card {
