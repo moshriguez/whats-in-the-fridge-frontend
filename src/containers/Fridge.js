@@ -164,7 +164,7 @@ const Fridge = ({ user, setUser, ingredients }) => {
 						<Modal.Title>Edit User Profile</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<Form>
+						<Form onSubmit={e => {e.preventDefault();editAccount()}}>
 							<Form.Group
 								className="mb-3"
 								controlId="favorite_food"
