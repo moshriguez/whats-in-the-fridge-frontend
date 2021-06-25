@@ -166,6 +166,7 @@ input::-webkit-input-placeholder {
     height: 100%;
     border: none;
     border-left: 2px solid black;
+    width: calc(100% - 28px);
 }
 
 .card-container {
