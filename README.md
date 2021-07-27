@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# What's in the Fridge? - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+Let's say you are cooking a new recipe and it calls for an ingredient that you aren't familiar with cooking. The new recipe did not use up that new ingredient and now it will likely just sit in your fridge until it goes bad and you have to throw it away. If only there were an app that could give you ideas on how to use that ingredient again. This is the problem our app seeks to solve.
 
-## Available Scripts
+Logged in users can add ingredients to their fridge and then search for recipes with that ingredient.
 
-In the project directory, you can run:
+## Technologies
+Project is created with:
+- React 17.0.2
+- React-Router 5.2.0
+- JWT 2.2
+- bcrypt 3.1.7 
+- Ruby 2.6.1
+- Rails 6.1.3
+- Active Model Serializers 0.10.12
+- httparty 0.18.1
 
-### `yarn start`
+## Launch
+To launch this app, you will also need to open the backend part of this project, found here: https://github.com/moshriguez/whats-in-the-fridge-backend. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open the backend project, cd into its directory and run:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+$ bundle install
+$ rails db:migrate
+$ rails db:seed
+$ rails s
+```
+Then on the frontend project, cd into the frontend directory and run:
+```
+$ yarn install
+$ yarn start
+```
 
-### `yarn test`
+## Video Demo
+<a href="https://www.loom.com/share/176d2e296731419e90a2bde95143e59d?sharedAppSource=personal_library" target="_blank">What's in the Frigde? Walkthrough Video</a>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Models
+![Model Relationships](./public/model-relationships.png)
 
-### `yarn build`
+- User:
+    - username
+    - password_digest
+    - bio
+    - favorite_food
+- Ingredient:
+    - name
+    - description
+- UserIngredient:
+    - user_id
+    - ingredient_id
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## User Stories:
+Users will be able to:
+- [x] Log in to their account
+- [x] Create an account
+- [x] Edit their profile info
+- [x] Delete their account
+- [x] Search for ingredients if not logged in
+- [x] Add ingredients to their fridge
+- [x] Click on an item to perform a search for recipes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Stretch Goals:
+- [] Use multiple ingredients to search for a recipe
+- [] Make user’s fridge look like a fridge
+- [] Add shopping list component so users can add missing ingredients for a recipe to shopping list
