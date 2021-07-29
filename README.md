@@ -62,6 +62,6 @@ Users will be able to:
 - [x] Click on an item to perform a search for recipes
 
 ## Stretch Goals:
-- [] Use multiple ingredients to search for a recipe
-- [] Make user’s fridge look like a fridge
-- [] Add shopping list component so users can add missing ingredients for a recipe to shopping list
+- [ ] Use multiple ingredients to search for a recipe
+- [ ] Make user’s fridge look like a fridge
+- [ ] Add shopping list component so users can add missing ingredients for a recipe to shopping list
